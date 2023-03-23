@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Proyecto{% endblock %}
+
+{% block content %}
+<body class="bg-gray-100">
+    <section class="p-12 mx-auto w-full md:w-3/4">
+        <div class="bg-gray-100 shadow rounded-lg px-2 py-4 flex flex-wrap md:w-full justify-between">
+            <div class="w-full md:w-1/3">
+                <div class="flex justify-center">
+                    <label for="ft_proyect" class="cursor-pointer">
+                        <img id="preview" src="https://via.placeholder.com/250" class="w-64 h-64 rounded-lg border-4 border-emerald-400 hover:border-emerald-500">
+                        <input type="file" id="ft_proyect" name="ft_proyect" class="hidden" accept="image/*">
+                    </label>
+                </div>
+            </div>
+            <form id="formP" class="w-full pr-6 md:w-2/3" enctype="multipart/form-data">
+                <div class="mb-2 w-full">
+                    <label for="name" class="block text-gray-700 font-bold mb-2">Nombre del proyecto</label>
+                    <input type="text" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese el nombre del proyecto" value="{{nombres}}" required>
+                </div>
+                <!-- Codigo del select -->
+                <div class="mb-2 w-full">
+                    <label for="status" class="block text-gray-700 font-bold mb-2">Estado del proyecto</label>
+                    <div class="relative">
+                      <select id="status" name="estado" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline-gray focus:border-purple-500 text-gray-700 font-medium">
+                        <option value="1">Iniciado</option>
+                        <option value="2">Financiamiento</option>
+                        <option value="3">Finalizado</option>
+                      </select>
+                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M10 12l6-6H4l6 6z"/>
+                        </svg>
+                      </div>
+                    </div>
+                </div>
+                <div class="mb-2 w-full">
+                    <label for="descripcion" class="block text-gray-700 font-bold mb-2">Descripci&oacute;n del proyecto</label>
+                    <textarea name="descripcion" class="w-full h-32 px-3 py-2 text-base placeholder-gray-400 border rounded-lg focus:outline-none focus:shadow-outline-gray" 
+                    placeholder="Agrega la descripción de tu proyecto (máximo 550 caracteres)" 
+                    maxlength="550" oninput="countWords()"></textarea>
+                </div>
+                <p class="text-gray-500 text-sm"><span id="wordCount">0</span>/550 caracteres</p>
+            </form>
+        </div>
+    </section>
+    <section id="secFinanciacion" class="hidden p-12 mx-auto mb-2 w-full md:w-3/4">
+        <form id="formFinanciacion" class="bg-gray-100 shadow rounded-lg p-10 flex md:w-full justify-around"></form>
+    </section>
+    <section class="p-12 mx-auto mb-2 w-full md:w-3/4">
+        <div class="bg-gray-100 shadow rounded-lg p-10 flex flex-wrap md:w-full justify-around">
+            <div>
+                <canvas id="myChart"></canvas>
+                <div class="my-4 w-full">
+                    <label for="name" class="block text-gray-700 font-bold mb-2">Valuaci&oacute;n</label>
+                    <input type="text" id="valuacion" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Valuación del proyecto" value="1" required>
+                </div>
+            </div>
+            <div>
+                <h3>Agregar fundadores</h3>
+                <div class="max-w-md mx-auto">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex gap-2">
+                            <div class="flex items-center justify-center">
+                                <input id="porcentaje" class="w-16 text-right border border-gray-300 rounded-l-lg px-2 py-1 focus:outline-none" type="number" min="1" max="99">
+                                <span class="bg-gray-100 border border-l-0 border-gray-300 rounded-r-lg px-2 py-1 text-gray-600">%</span>
+                            </div>
+                            <input class="flex-grow border border-gray-300 px-2 py-1 rounded-lg" type="text" id="name-input" placeholder="Email del usuario">
+                            <button class="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg" type="button" id="add-btn">Agregar</button>
+                        </div>
+                    </div>
+                    <ul id="name-list" class="mt-4 border border-gray-300 rounded-lg px-2 py-1"></ul>
+                </div>                  
+            </div>
+            <button id="crearP" class="w-full text-white bg-emerald-600 px-4 py-2 rounded-lg">Crear Proyecto</button>
+        </div>
+    </section>
+    <div class="h-1/3 m-0"></div>
+</body>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+{% block scripts %}
+<script>
+    const MYEMAIL = "{{email}}"
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{url_for('static', filename='js/funciones.js')}}"></script>
+<script src="{{url_for('static', filename='js/crear.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<body class="bg-gray-200">
+    <div class="w-full p-5">
+        <!-- Contenido -->
+        <section class="mb-2 w-full">
+            <div class="bg-gray-100 dark:bg-slate-900 shadow rounded-lg p-4 flex flex-wrap md:w-full justify-around">
+                <div>
+                    <div class="mb-4">
+                        <label for="ft_perfil" class="cursor-pointer">
+                        <img id="preview" src="/img/dinamic/perfil/{{uuid}}?w=250" alt="profile picture" class="w-64 h-64 rounded-full border-4 border-emerald-400 hover:border-emerald-500">
+                        <input type="file" id="ft_perfil" name="foto" class="userInfo hidden" accept="image/*">
+                        </label>
+                    </div>
+                </div>
+                <div class="w-full md:w-2/3">
+                    <div class="flex flex-wrap justify-between">
+                        <div class="mb-4 w-full md:w-[48%]">
+                            <label for="name" class="block text-gray-700 dark:text-gray-200 font-bold mb-2">Nombre completo:</label>
+                            <input type="text" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese su nombre completo" value="{{nombres}}" required readonly>
+                        </div>
+                        <div class="mb-4 w-full md:w-[48%]">
+                            <label for="email" class="block text-gray-700 dark:text-gray-200 font-bold mb-2">Correo electrónico:</label>
+                            <input type="email" name="email" class="userInfo shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese su correo electrónico" value="{{email}}" required readonly>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap justify-between">
+                        <div class="mb-4 w-full md:w-[48%]">
+                            <label for="dni" class="block text-gray-700 dark:text-gray-200 font-bold mb-2">DNI:</label>
+                            <input type="text" name="dni" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese su DNI" value="{{dni}}" required readonly>
+                        </div>
+                        <div class="mb-4 w-full md:w-[48%]">
+                            <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-2" for="telefono">Tel&eacute;fono</label>
+                            <input class="userInfo appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="telefono" name="telefono" type="number" placeholder="Teléfono" value="{{telefono}}" maxlength="9">
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="block font-medium text-sm text-gray-700 dark:text-gray-200 mb-2" for="universidad">
+                            Universidad
+                        </label>
+                        <select id="universidad" name="universidad" class="userInfo appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" disabled>Seleccione una opción</option>
+                            {% for uni in universidades %}
+                            <option value="{{uni.id}}" {%if uni.id == universidad['id']%}selected{%endif%}>{{uni.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-2 flex w-full">
+                        <button id="btnActualizar" class="hidden w-1/3 mx-auto bg-emerald-500 text-gray-200 hover:bg-emerald-600 p-2 rounded-lg">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Contenido del dashboard -->
+        <section class="py-6 bg-gray-100 dark:bg-slate-900">
+            <h1 class="text-2xl px-4 pb-2 text-rose-500 font-sans font-bold">Mis proyectos</h1>
+            <div class="container mx-auto">
+                <from class="flex flex-wrap -mx-6">
+                    <!-- Widget de proyectos -->
+                    <div class="w-full md:w-1/2 xl:w-1/4 px-5">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-gray-700">Crear proyecto</h3>
+                            <div class="flex justify-center mt-6">
+                                <div class="flex items-center">
+                                    <div id="createProyect" class="rounded-full h-16 w-16 flex items-center justify-center mr-4 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-violet-600 w-max h-max">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for proyecto in proyectos %}
+                    <div class="w-full md:w-1/2 xl:w-1/3 px-5">
+                        <div class="proyecto bg-white rounded-lg hover:cursor-pointer hover:shadow-rose-500/50 shadow-md p-6" data-id="{{proyecto.uuid}}">
+                            <h3 class="text-lg font-semibold text-gray-700">{{proyecto.nombre}}</h3>
+                            <div class="flex justify-between mt-6">
+                                <div class="flex items-center">
+                                    <div class="rounded-full text-violet-700 h-10 w-10 flex items-center justify-center mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-max h-max">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                        </svg>                                          
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">Participantes</p>
+                                        <p class="text-xl font-semibold text-gray-700">{{proyecto.num_participantes}}</p>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                    </svg>                                                                     
+                                    <span><b>Proximos eventos: </b></span><br>
+                                    <span>
+                                        {% if proyecto.num_eventos %}
+                                        Hay {{ proyecto.num_eventos }} eventos
+                                        {% else %}
+                                        No hay eventos
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </from>
+            </div>
+        </section>
+    </div>
+</body>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{url_for('static', filename='js/funciones.js')}}"></script>
+<script src="{{url_for('static', filename='js/perfil.js')}}"></script>
+{% endblock %}

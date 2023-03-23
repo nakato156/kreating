@@ -1,0 +1,98 @@
+<html lang="es">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body class="dark:bg-gray-800">
+    {% block nav %}
+    <nav class="bg-slate-900">
+      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 flex items-center justify-start h-16">
+        <!-- Logo -->
+        <div class="flex-initial">
+          <a href="#" class="text-white font-bold text-xl">Kreating</a>
+        </div>
+    
+        <!-- Botón para mostrar/ocultar el menú -->
+        <button class="sm:hidden flex items-center text-gray-300 hover:text-white" id="menu-btn">
+          <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+          </svg>
+        </button>
+    
+        <!-- Menú principal -->
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start sm:flex">
+          <div class="sm:flex hidden sm:ml-6" id="menu">
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+              <a href="/proyectos" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Ver proyectos</a>
+              {% if not sesion_activa %}
+              <a href="/registro" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Unirse</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+    
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Sección de información de contacto -->
+            <div class="mb-8">
+              <h3 class="text-lg font-medium mb-4">Contáctanos</h3>
+              <p class="text-gray-400 leading-loose">
+                <span class="block">Piura, sullana</span>
+                <span class="block">kreating.prj@gmail.com</span>
+                <span class="block">(+51) 924-242-707</span>
+              </p>
+            </div>
+      
+            <!-- Sección de redes sociales -->
+            <div class="mb-8">
+              <h3 class="text-lg font-large mb-4">Síguenos en redes sociales</h3>
+              <ul class="flex space-x-4 text-2xl">
+                <li><a href="#" class="text-gray-400 hover:text-white"><i class='bx bxl-facebook'></i></a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white"><i class='bx bxl-twitter'></i></a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white"><i class='bx bxl-instagram-alt'></i></i></a></li>
+              </ul>
+            </div>
+      
+            <!-- Sección de enlaces -->
+            <div class="mb-8">
+              <h3 class="text-lg font-medium mb-4">Enlaces</h3>
+              <ul class="text-gray-400 leading-loose">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Acerca de</a></li>
+              </ul>
+            </div>
+      
+            <!-- Sección de newsletter -->
+            <div>
+              <h3 class="text-lg font-medium mb-4">Ent&eacute;rate de nuvas cosas</h3>
+              <form>
+                <div class="flex">
+                  <input type="email" placeholder="Correo electrónico" class="bg-gray-800 text-white px-4 py-2 rounded-l-md w-full">
+                  <button type="submit" class="bg-white text-gray-900 px-4 py-2 rounded-r-md hover:bg-gray-100">Suscribirse</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      
+          <p class="text-gray-400 text-center text-sm mt-8">&copy; 2023 Kreating. Todos los derechos reservados.</p>
+        </div>
+    </footer>     
+    {% endblock %} 
+  </body>
+  <script src="{{url_for('static', filename='js/base.js')}}"></script>
+  {% block scripts %}
+  {% endblock %}
+</html>

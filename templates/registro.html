@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{url_for('static', filename='/css/styles.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='/css/otros.css')}}">
+  <title>Formulario de registro</title>
+</head>
+<body class="bg-gray-100 dark:bg-gray-800">
+    <div class="container mx-auto mt-8">
+        <div class="min-h-screen p-0 sm:p-12">
+            <div class="mx-auto max-w-md px-6 py-12 bg-white dark:bg-slate-900 border-0 shadow-lg sm:rounded-3xl">
+                <h1 class="text-2xl font-bold dark:text-gray-200 mb-8">Registro</h1>
+                <form id="form" class="dark:text-gray-100" novalidate>
+                    <div class="relative z-0 w-full mb-5">
+                        <input type="text" name="nombres" placeholder=" " required class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-rose-600 border-gray-200"/>
+                        <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Ingrese su nombre</label>
+                        <span class="text-sm text-red-600 hidden" id="error">El nombre es requerido</span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5">
+                        <input type="number" name="dni" placeholder=" " required class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-rose-600 border-gray-200"/>
+                        <label for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Ingrese su DNI</label>
+                        <span class="text-sm text-red-600 hidden" id="error">El campo es requerido</span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5">
+                        <input type="email" name="email" placeholder=" " class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-rose-600 border-gray-200" />
+                        <label for="email" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Ingrese su email</label>
+                        <span class="text-sm text-red-600 hidden" id="error">El email es requerido</span>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5">
+                        <select name="universidad" value="" onclick="this.setAttribute('value', this.value);" class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-violet-700 border-gray-200">
+                            <option value="" selected disabled hidden></option>
+                            {% for uni in universidades %}
+                            <option class="dark:text-black" value="{{uni.id}}">{{uni.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="select" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Seleccione su universidad</label>
+                        <span class="text-sm text-red-600 hidden" id="error">Option has to be selected</span>
+                    </div>
+                
+                    <div class="relative z-0 w-full mb-5">
+                        <input type="password" name="password" placeholder=" " class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-violet-700 border-gray-200"/>
+                        <label for="password" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Ingrese su contraseña</label>
+                        <span class="text-sm text-red-600 hidden" id="error">La contraseña es requerida</span>
+                    </div>
+                
+                    <fieldset class="relative z-0 w-full p-px mb-5">
+                        <legend class="absolute text-gray-500 transform scale-75 -top-3 origin-0">G&eacute;nero</legend>
+                        <div class="block pt-3 pb-2 space-x-4">
+                        <label>
+                            <input type="radio" name="genero" value="1" class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"/>
+                                Mujer
+                        </label>
+                        <label>
+                            <input type="radio" name="genero" value="2" class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"/>
+                                Hombre
+                        </label>
+                        </div>
+                        <span class="text-sm text-red-600 hidden" id="error">Escoja una opci&oacute;n</span>
+                    </fieldset>
+                    <div class="relative z-0 w-full mb-5">
+                        <a href="/login" class="text-cyan-700 hover:underline hover:text-cyan-900">Ya tienes una cuenta? Inicia sesi&oacute;n</a>
+                    </div>
+                    <button id="button" type="submit" class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-green-500 hover:bg-green-600 hover:shadow-lg focus:outline-none">
+                        Registrarse
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="fixed bottom-5 right-5 z-50"></div>
+</body>
+<script src="{{url_for('static', filename='/js/funciones.js')}}"></script>
+<script src="{{url_for('static', filename='/js/registro.js')}}"></script>
+</html>

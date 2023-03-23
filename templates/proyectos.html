@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Ver Proyectos {% endblock %}
+
+{% block content %}
+<div class="p-10">
+    <div class="mb-10">
+        <form class="p-2 flex flex-wrap mx-auto items-center w-full md:w-3/5 justify-between rounded-xl">
+          <div class="flex items-center w-full md:w-3/5 border border-rose-500 rounded-xl">
+            <input name="busqueda" type="text" class="w-full py-1 px-2 outline-none rounded-l-xl">
+            <div class="p-2 bg-rose-600 rounded-r-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>                  
+            </div>
+          </div>
+          <div class="flex items-center md:ml-4">
+            <select id="estado" name="estado" class="border border-gray-300 py-1 px-2 rounded-xl">
+              <option value="">Todos los estados</option>
+              <option value="0">Iniciado</option>
+              <option value="1">Financiación</option>
+              <option value="2">Finalizado</option>
+            </select>
+          </div>
+          <button type="submit" class="ml-4 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded">
+            Buscar
+          </button>
+        </form>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for proyecto in proyectos %}
+        <div class="cursor-pointer bg-white dark:bg-slate-800 m-auto rounded-lg shadow-md shadow-gray-400 dark:shadow-emerald-600 overflow-hidden w-full md:w-1/2 cardPry" id="{{proyecto.uuid}}">
+          <div class="relative">
+            <img class="w-full h-48 object-cover" src="/img/dinamic/proyecto/{{ proyecto.uuid }}?w=350&h=48" alt="{{ proyecto.nombre }}">
+            <span class="absolute top-2 left-2 py-1 px-2 bg-gray-900 text-white font-bold text-sm rounded-full">{{ proyecto.estado.nombre }}</span>
+          </div>
+          <div class="p-4">
+            <h2 class="text-xl dark:text-white font-bold">{{ proyecto.nombre }}</h2>
+            <p class="text-gray-600 dark:text-white  font-normal truncate">{{ proyecto.descripcion }}</p>
+            <p class="text-emerald-600 font-semibold">Valoración: {{ round(proyecto.valuacion, 2) }}</p>
+          </div>
+        </div>
+        {% endfor %}
+    </div>  
+</div>  
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('static', filename='js/proyectos.js')}}"></script>
+{% endblock %}
